@@ -31,3 +31,8 @@ at any time or visit the [Learner Help Center](https://learner.coursera.help/hc
 ### How can I use preinstalled libraries in my Sandbox?
 
 -   You can load the library using library(packagename).
+
+### Courses are done on coursera sandbox
+
+![coursera image](coursera.png)
+
