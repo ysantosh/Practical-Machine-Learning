@@ -1,6 +1,6 @@
 ---
-title: "Prediction Assignment Writeup"
-author: "Leigh Pearson"
+title: "Practical MLS"
+author: "Santosh Yadav"
 date: "2023-11-25"
 output:
   html_document: default
@@ -12,33 +12,57 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Executive Summary
-
-For this project, I developed a predictive model to determine the manner in which exercises were performed using data from accelerometers on the belt, forearm, arm, and dumbbell of 6 participants. My approach involved comprehensive data cleaning and preprocessing to handle missing values and ensure data integrity. I employed a Random Forest algorithm, leveraging its robustness in handling large datasets with multiple predictors. The model demonstrated high accuracy and was fine-tuned using cross-validation techniques, ensuring reliability in its predictive capabilities. The final model was tested against a separate dataset of 20 cases, predicting the exercise technique being used. The entire analysis, along with the model and its predictions, have been thoroughly documented and are available in a GitHub repository, showcasing both the methodology and the results in a comprehensible and accessible manner.
-
-## Downloading and Cleaning the Data 
-options(repos = c(CRAN = "https://cran.rstudio.com/"))
-
-install.packages("dplyr")
-
-install.packages("tidyr")
-
-install.packages("ggplot2")
-
-```{r, message=FALSE}
-library(dplyr)
-library(tidyr)
-library(ggplot2)
-
-training_url <- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"
+The steps are done on 
+https://www.coursera.org/learn/practical-machine-learning/lab-sandbox?path=%2F#
+and following files were downloaded and put in /home/rstudio 
 testing_url <- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
-training_data <- read.csv(training_url)
-testing_data <- read.csv(testing_url)
+training_url <- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"
 ```
 
-Initial exploration reveals many columns with 19216 out of 19622 values missing, which is a very high percentage, and typically, such columns are not useful for predictive modeling or statistical analysis because they contain very little information. Therefore, I will remove these columns from both the training and testing datasets.
+
+They were read via
+```
+train_data <- read.csv(training_url)
+test_data <- read.csv(testing_url)
+```
+
+There were 19622 columns and few of them were not proper so stared with 50% threshold. 
 
 ```{r}
 threshold <- 0.5  # 50% missing values
-training_data <- training_data[, colMeans(is.na(training_data)) < threshold]
+train_data <- train_data[, columnMeans(is.na(train_data)) < threshold]
 ```
+
+The step involves were
+Step 1 – we need to load the package module 
+```
+library(gdm)
+```
+Step 2 – Load the data and if required set a Subset the data of file pml-training.csv
+```
+data(pml-training.csv)
+adData = data.frame(diagnosis,predictors)
+```
+Step 3 -  fit model
+```
+fit <- lda(Class~., data= adData[ inTrain,])
+```
+
+Step 4 -  summarize the fit
+```
+summary(fit)
+```
+Step 5 -  make predictions
+```
+predictions <- predict(fit, adData)
+```
+Step 6 -  make predictions
+```
+predictions <- predict(fit, adData)
+```
+step 7  summarize accuracy
+```
+rmse <- mean((adData)^2)
+print(rmse)
+```
+
